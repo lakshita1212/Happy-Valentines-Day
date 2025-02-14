@@ -7,21 +7,101 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+
+
+    <div class="audio-sidebar">
+        <h3>🎵 Now Playing</h3>
+        <h2>Audio Jukebox</h2>
+        <p id="current-song">Select a song</p>
+        <audio id="bg-music" loop>
+            <source id="audio-source" src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <div class="audio-controls">
+            <button onclick="playAudio()">▶️</button>
+            <button onclick="pauseAudio()">⏸️</button>
+            <button onclick="muteAudio()">🔇</button>
+        </div>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1" onchange="setVolume(this.value)">
+        
+        <h4>Switch Song</h4>
+        <button onclick="changeSong('audio/shy.mp3', 'Shy')">Shy</button>
+        <button onclick="changeSong('audio/doiwannaknow.mp3', 'Do I Wanna Know?')">Do I Wanna Know?</button>
+        <button onclick="changeSong('audio/bomma.mp3', 'Panchadara Bomma')">Panchadara Bomma</button>
+        <button onclick="changeSong('audio/bts.mp3', 'Fun Boys - BTS')">Fun Boys - BTS</button>
+    </div>
+
     <div class="container">
         <h1>Happy Galentine's Day! 💖</h1>
         <h4>Dear Shri💕, </h4>
-        <h5>Thanks for being an amazing friend and the best roommate I can ask for. From the random late night conversations to the library study sessions where we ended up laughing the whole time, I always cherish every moment with you. Your kindness and humour always lift me up and I'm really grateful to have met you. I know I can be a slob sometimes, but I will be better for my dearest pondatti! Thanks and love you <3 
-        </h5>
+        <h5>Thanks for being an amazing friend and the best roommate I can ask for. From the random late night conversations to the library study sessions where we ended up laughing the whole time, I always cherish every moment with you. Your kindness and humour always lift me up and I'm really grateful to have met you. I know I can be a slob sometimes, but I will be better for my dearest pondatti! Thanks and love you <3</h5>
+
+        <h6> Click on a picture! </h6>
         <div class="images">
-            <img src="images/darsha's house.jpg" alt="Darsha's house">
-            <img src="images/freshman_fitchecks.jpg" alt="freshman year fitchecks">
-            <img src="images/halloween.jpg" alt="halloween Alvin and Brittany">
-            <img src="images/iceskating.jpg" alt="Ice skating grace house">
-            <img src="images/library.jpg" alt="Library study session">
-            <img src="images/navratri.jpg" alt="Navratri photoshoot">
-            <img src="images/thillana.jpg" alt="Thillana">
-            <img src="images/rooftop.jpg" alt="Rooftop for fake lunar eclipse">
+            
+            <img src="images/darsha's house.jpg" alt="Morning at Darsha's house" onclick="showDescription(this)">
+            <img src="images/freshman_fitchecks.jpg" alt="Freshman year mirror fitchecks" onclick="showDescription(this)">
+            <img src="images/halloween.jpg" alt="Halloween Dressing up as Alvin and Brittany" onclick="showDescription(this)">
+            <img src="images/iceskating.jpg" alt="Ice skating during Grace House Visit" onclick="showDescription(this)">
+            <img src="images/library.jpg" alt="Library study session (we didn't get any work done)" onclick="showDescription(this)">
+            <img src="images/navratri.jpg" alt="Navratri photoshoot, we slayed" onclick="showDescription(this)">
+            <img src="images/thillana.jpg" alt="Thillana performance at Archi Library" onclick="showDescription(this)">
+            <img src="images/rooftop.jpg" alt="Rooftop - when we all went to the rooftop thinking it was a lunar eclipse" onclick="showDescription(this)">
         </div>
     </div>
+
+    <div id="image-modal" class="modal" onclick="closeModal()">
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="">
+            <p id="modal-caption"></p>
+        </div>
+    </div>
+
+    <script>
+        let audio = document.getElementById("bg-music");
+        let source = document.getElementById("audio-source");
+        let songTitle = document.getElementById("current-song");
+        let sidebar = document.querySelector(".audio-sidebar");
+        let toggleButton = document.getElementById("toggle-sidebar");
+
+        function playAudio() {
+            audio.play();
+        }
+
+        function pauseAudio() {
+            audio.pause();
+        }
+
+        function muteAudio() {
+            audio.muted = !audio.muted;
+        }
+
+        function setVolume(value) {
+            audio.volume = value;
+        }
+
+        function changeSong(songPath, songName) {
+            source.src = songPath;
+            songTitle.textContent = songName;
+            audio.load();
+            audio.play();
+        }
+
+        function showDescription(img) {
+            document.getElementById("modal-image").src = img.src;
+            document.getElementById("modal-caption").textContent = img.alt;
+            document.getElementById("image-modal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("image-modal").style.display = "none";
+        }
+
+
+
+
+    </script>
 </body>
 </html>
