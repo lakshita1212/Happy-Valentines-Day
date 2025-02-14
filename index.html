@@ -8,9 +8,9 @@
 </head>
 <body>
 
-
-
     <div class="audio-sidebar">
+        <button id="open-sidebar" class="open-btn">Jukebox</button>
+        <button id="close-sidebar" class="close-btn">X</button>
         <h3>🎵 Now Playing</h3>
         <h2>Audio Jukebox</h2>
         <p id="current-song">Select a song</p>
@@ -40,7 +40,6 @@
 
         <h6> Click on a picture! </h6>
         <div class="images">
-            
             <img src="images/darsha's house.jpg" alt="Morning at Darsha's house" onclick="showDescription(this)">
             <img src="images/freshman_fitchecks.jpg" alt="Freshman year mirror fitchecks" onclick="showDescription(this)">
             <img src="images/halloween.jpg" alt="Halloween Dressing up as Alvin and Brittany" onclick="showDescription(this)">
@@ -52,10 +51,12 @@
         </div>
     </div>
 
+
     <div id="image-modal" class="modal" onclick="closeModal()">
-        <div class="modal-content">
+        <div class="modal-content" onclick="event.stopPropagation()"> 
             <img id="modal-image" src="" alt="">
             <p id="modal-caption"></p>
+            <button class="close-btn" onclick="closeModal()">X</button> 
         </div>
     </div>
 
@@ -64,7 +65,6 @@
         let source = document.getElementById("audio-source");
         let songTitle = document.getElementById("current-song");
         let sidebar = document.querySelector(".audio-sidebar");
-        let toggleButton = document.getElementById("toggle-sidebar");
 
         function playAudio() {
             audio.play();
@@ -92,15 +92,23 @@
         function showDescription(img) {
             document.getElementById("modal-image").src = img.src;
             document.getElementById("modal-caption").textContent = img.alt;
-            document.getElementById("image-modal").style.display = "flex";
+            document.getElementById("image-modal").classList.add("show"); 
         }
 
         function closeModal() {
-            document.getElementById("image-modal").style.display = "none";
+            document.getElementById("image-modal").classList.remove("show"); 
         }
 
+        let closeSidebarButton = document.getElementById("close-sidebar");
+        let openSidebarButton = document.getElementById("open-sidebar");
 
+        closeSidebarButton.addEventListener("click", function() {
+            sidebar.classList.add("closed");
+        });
 
+        openSidebarButton.addEventListener("click", function() {
+            sidebar.classList.remove("closed");
+        });
 
     </script>
 </body>
